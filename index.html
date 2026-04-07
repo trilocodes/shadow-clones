@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Shadow Clone Jutsu</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <video id="inputVideo" playsinline autoplay muted></video>
+  <canvas id="mainCanvas"></canvas>
+
+  <div id="hud">
+    <div id="jutsuText" class="jutsu-text hidden">影分身の術</div>
+    <div id="gestureIndicator">
+      <span id="gestureIcon">✌️</span>
+      <span id="gestureLabel">Show ninja sign to begin</span>
+    </div>
+    <div id="stateBar">
+      <div class="state-dot" id="dot-idle"></div>
+      <div class="state-dot" id="dot-clones"></div>
+      <div class="state-dot" id="dot-glow"></div>
+      <div class="state-dot" id="dot-merge"></div>
+    </div>
+  </div>
+
+  <div id="kanjiFlash" class="kanji-flash hidden">影分身</div>
+
+  <script src="clones.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

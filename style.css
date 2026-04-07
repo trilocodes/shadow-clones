@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Bebas+Neue&display=swap');
+
+:root {
+  --chakra-blue: #00cfff;
+  --chakra-glow: #00cfff88;
+  --dark-bg: #0a0a0f;
+  --clone-shadow: rgba(0, 0, 0, 0.65);
+  --hud-text: #e8e0d0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--dark-bg);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Bebas Neue', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#inputVideo {
+  display: none;
+}
+
+#mainCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* HUD */
+#hud {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Jutsu name text - top center */
+.jutsu-text {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(18px, 5vw, 36px);
+  color: var(--chakra-blue);
+  text-shadow:
+    0 0 10px var(--chakra-blue),
+    0 0 30px var(--chakra-glow),
+    0 0 60px #00cfff44;
+  letter-spacing: 4px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  white-space: nowrap;
+}
+
+.jutsu-text.visible {
+  opacity: 1;
+}
+
+.jutsu-text.hidden {
+  opacity: 0;
+}
+
+/* Gesture label - bottom */
+#gestureIndicator {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid #ffffff22;
+  border-radius: 40px;
+  padding: 10px 24px;
+  backdrop-filter: blur(8px);
+}
+
+#gestureIcon {
+  font-size: 22px;
+}
+
+#gestureLabel {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(13px, 3.5vw, 18px);
+  letter-spacing: 2px;
+  color: var(--hud-text);
+}
+
+/* State dots */
+#stateBar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.state-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff22;
+  border: 1px solid #ffffff33;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.state-dot.active {
+  background: var(--chakra-blue);
+  box-shadow: 0 0 8px var(--chakra-blue), 0 0 16px var(--chakra-glow);
+}
+
+/* Kanji flash */
+.kanji-flash {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  z-index: 20;
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(60px, 18vw, 140px);
+  color: white;
+  text-shadow:
+    0 0 20px var(--chakra-blue),
+    0 0 60px var(--chakra-blue),
+    0 0 100px #00cfff55;
+  pointer-events: none;
+  opacity: 0;
+  transition: none;
+  white-space: nowrap;
+}
+
+.kanji-flash.flash {
+  animation: kanjiPop 1.2s ease-out forwards;
+}
+
+.kanji-flash.hidden { opacity: 0; }
+
+@keyframes kanjiPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); filter: blur(10px); }
+  20%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); filter: blur(0px); }
+  60%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1); filter: blur(6px); }
+}
